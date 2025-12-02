@@ -44,10 +44,12 @@ export const day2pt2 = (stringRanges: string[]): number => {
   return day2Process(stringRanges, (stringN) => {
     const stringNLength = stringN.length
     for (let j = 1; j <= stringNLength / 2; j++) {
-      const chunked = chunkString(stringN, j)
-      const chunkedSet = new Set(chunked)
-      if (chunkedSet.size == 1) {
-        return true
+      if (stringNLength % j == 0) {
+        const chunked = chunkString(stringN, j)
+        const chunkedSet = new Set(chunked)
+        if (chunkedSet.size == 1) {
+          return true
+        }
       }
     }
     return false
