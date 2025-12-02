@@ -19,4 +19,13 @@ L82`.split('\n')
     const result = day1pt2(example)
     expect(result).toBe(6)
   })
+  it('should work with my example', () => {
+    const data = `L50
+R200
+L50
+R100
+L175`.split('\n')
+    const result = day1pt2(data)
+    expect(result).toBe(6)
+  })
 })
