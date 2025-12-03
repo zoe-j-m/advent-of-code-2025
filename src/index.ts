@@ -3,6 +3,7 @@ import { day1, day1pt2 } from './day1.ts'
 import { getFileAsLines } from './utils/fileHandling.ts'
 import { day2pt1, day2pt2 } from './day2.ts'
 import { getLinesCommaSeparated } from './utils/stringUtils.ts'
+import { day3pt1, day3pt2 } from './day3.ts'
 
 const runDay = (
   dayNo: number,
@@ -29,3 +30,4 @@ runDay(
   (data) => day2pt1(getLinesCommaSeparated(data)[0]!),
   (data) => day2pt2(getLinesCommaSeparated(data)[0]!)
 )
+runDay(3, day3pt1, day3pt2)
