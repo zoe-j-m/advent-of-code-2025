@@ -1,51 +1,52 @@
+import { matrix, type CellCoordinates, type Matrix } from "./utils/matrices.ts"
+
 const parseLine = (line: string): string[] => {
   return line.split('')
 }
 const paperRoll = '@'
 
-interface GridRef {
-  row: number
-  col: number
-}
-
-export const day4Process = (grid: string[][]): GridRef[] => {
-  let removable: GridRef[] = []
-  grid.forEach((row, rowIndex) => {
-    row.forEach((cell, colIndex) => {
+export const day4Process = (grid: Matrix<string>): CellCoordinates[] => {
+  let removable: CellCoordinates[] = [] 
+  grid.forEach(
+      (cell, coords) => {
       let adjacentCount = 0
       if (cell === paperRoll) {
+        const rowIndex = coords[1]!
+        const colIndex = coords[0]!
         for (let k = rowIndex - 1; k <= rowIndex + 1; k++) {
           for (let j = colIndex - 1; j <= colIndex + 1; j++) {
             try {
-              if (grid[k]![j]! === paperRoll) {
+              if (grid.get([j,k]) === paperRoll) {
                 adjacentCount++
               }
-            } catch {}
+            } catch {
+              
+            }
           }
         }
         if (adjacentCount < 5) {
-          removable.push({ row: rowIndex, col: colIndex })
+          removable.push(coords)
         }
       }
     })
-  })
-  return removable
-}
+     return removable
+  }
+
 
 export const day4pt1 = (lines: string[]) => {
-  const grid: string[][] = lines.map(parseLine)
+  const grid: Matrix<string> = matrix(lines.map(parseLine))
   return day4Process(grid).length
 }
 
 export const day4pt2 = (lines: string[]) => {
-  const grid: string[][] = lines.map(parseLine)
-  let removable: GridRef[]
+  const grid: Matrix<string> = matrix(lines.map(parseLine))
+  let removable: CellCoordinates[]
   let total = 0
   do {
     removable = day4Process(grid)
     total += removable.length
-    removable.forEach((ref) => {
-      grid[ref.row]![ref.col]! = '.'
+    removable.forEach((coordinates) => {
+      grid.set(coordinates, '.')
     })
   } while (removable.length > 0)
 
