@@ -1,7 +1,3 @@
-const parseLine = (line: string): string[] => {
-  return line.split('')
-}
-
 interface Range {
   from: number
   to: number

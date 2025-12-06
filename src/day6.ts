@@ -13,7 +13,9 @@ export const day6pt1 = (lines: string[]) => {
     .reverse()
     .map((line) => line.split(' ').filter((a) => a !== ''))
 
-  const symbolLine = reversedLines[0]!
+  if (!reversedLines[0]) return -1
+
+  const symbolLine = reversedLines[0]
 
   const numberLines = reversedLines
     .slice(1)
@@ -21,10 +23,14 @@ export const day6pt1 = (lines: string[]) => {
 
   let total = 0
   symbolLine.forEach((symbol, symbolIndex) => {
-    const values = numberLines.map((a) => a[symbolIndex]!)
-    total += values
-      .slice(1)
-      .reduce((acc, curr) => applySymbol(symbol, acc, curr), values[0]!)
+    const values = numberLines
+      .map((a) => a[symbolIndex])
+      .filter((a) => a != undefined)
+    if (values[0]) {
+      total += values
+        .slice(1)
+        .reduce((acc, curr) => applySymbol(symbol, acc, curr), values[0])
+    }
   })
   return total
 }
@@ -34,6 +40,17 @@ export const day6pt2 = (lines: string[]) => {
 
   const transposed: string[][] = []
 
+  /*
+   [1 2 3]
+   [4 5 6]
+   [+ * -]
+
+   to
+
+   [1 4 +]
+   [2 5 *]
+   [3 6 -]
+  */
   splitlines.forEach((line) => {
     line.forEach((char, charIndex) => {
       if (transposed[charIndex]) {
@@ -47,12 +64,17 @@ export const day6pt2 = (lines: string[]) => {
   let symbol = ''
   let numberStack: number[] = []
   let total = 0
-  let symbolPos = transposed[0]!.length - 1
+
+  if (!transposed[0]) return -1
+
+  let symbolPos = transposed[0].length - 1
   transposed.forEach((line) => {
-    if (line.filter((a) => a != ' ').length == 0) {
-      total += numberStack
-        .slice(1)
-        .reduce((acc, curr) => applySymbol(symbol, acc, curr), numberStack[0]!)
+    if (line.join('').trim() == '') {
+      // calculate the result of the sum
+      if (numberStack[0])
+        total += numberStack
+          .slice(1)
+          .reduce((acc, curr) => applySymbol(symbol, acc, curr), numberStack[0])
       symbol = ''
       numberStack = []
     } else {
@@ -65,9 +87,10 @@ export const day6pt2 = (lines: string[]) => {
     }
   })
 
-  total += numberStack
-    .slice(1)
-    .reduce((acc, curr) => applySymbol(symbol, acc, curr), numberStack[0]!)
+  if (numberStack[0])
+    total += numberStack
+      .slice(1)
+      .reduce((acc, curr) => applySymbol(symbol, acc, curr), numberStack[0])
 
   return total
 }
