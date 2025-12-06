@@ -23,7 +23,7 @@ describe('day 5 examples should pass', () => {
     expect(result).toBe(14)
   })
   it('should pass zoes test', () => {
-      const zExample = `3-5
+    const zExample = `3-5
 10-14
 16-20
 18-19

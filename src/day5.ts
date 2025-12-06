@@ -20,8 +20,10 @@ export const day5pt1 = (lines: string[]) => {
   return total
 }
 
-const getRanges = (lines: string[]): {ranges: Range[], remainingLines: string[]} => {
-   const rangeLines = []
+const getRanges = (
+  lines: string[]
+): { ranges: Range[]; remainingLines: string[] } => {
+  const rangeLines = []
   let i = 0
   while (lines[i] && lines[i] != '') {
     rangeLines.push(lines[i]!)
@@ -34,29 +36,27 @@ const getRanges = (lines: string[]): {ranges: Range[], remainingLines: string[]}
       ranges.push({ from: parseInt(splitLine[0]), to: parseInt(splitLine[1]) })
     }
   })
-  return { ranges, remainingLines: lines.slice(i+1)}
+  return { ranges, remainingLines: lines.slice(i + 1) }
 }
 
 export const day5pt2 = (lines: string[]) => {
- 
   const { ranges } = getRanges(lines)
   ranges.sort((a, b) => {
     const fromCompare = a.from - b.from
     if (fromCompare != 0) return fromCompare
-    
+
     return a.to - b.to
   })
-   
-  let i = 0 
-  while (i < ranges.length -1) {
-  
+
+  let i = 0
+  while (i < ranges.length - 1) {
     const range = ranges[i]
-    const nextRange = ranges[i+1]
+    const nextRange = ranges[i + 1]
     if (!range || !nextRange) continue
-  
+
     if (nextRange.from <= range.to) {
       if (nextRange.to <= range.to) {
-        ranges.splice(i+1,1)
+        ranges.splice(i + 1, 1)
         continue
       } else {
         range.to = nextRange.from - 1
@@ -64,8 +64,8 @@ export const day5pt2 = (lines: string[]) => {
     }
     i++
   }
-  
+
   let total = 0
-  ranges.forEach(range => total += range.to - range.from + 1)
+  ranges.forEach((range) => (total += range.to - range.from + 1))
   return total
 }
