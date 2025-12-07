@@ -1,41 +1,34 @@
 import { matrix, type CellCoordinates } from './utils/matrices.ts'
+
 export const day7pt1 = (lines: string[]) => {
   const endOfField = lines.length
-  const field = matrix(lines.map((a) => a.split('')))
+  const field = lines.map((a) => a.split(''))
   const startPos = lines[0]?.indexOf('S') || -1
   if (startPos < 0) return startPos
-  const beamSet: Set<string> = new Set()
 
   let splitCount = 0
 
-  const beam = (startCoords: CellCoordinates) => {
-    let currentCoords = [...startCoords]
-    while (
-      currentCoords[0] != undefined &&
-      currentCoords[0] < endOfField &&
-      !beamSet.has(currentCoords.join(','))
-    ) {
-      beamSet.add([...currentCoords].join(','))
-      currentCoords = [...currentCoords]
-      currentCoords[0]! += 1
-      if (field.get(currentCoords) == '^') {
-        const beamLaunch = [...currentCoords]
-        beamLaunch[1]! += 1
-        const continuation = [...currentCoords]
-        continuation[1]! -= 1
-        const beamGo = !beamSet.has(beamLaunch.join(','))
-        const continuationGo = !beamSet.has(continuation.join(','))
-        splitCount += 1
-        if (beamGo) beam(beamLaunch)
-        if (!continuationGo) {
-          currentCoords = []
+  let previousBeamSet = new Set([startPos])
+
+  field.slice(1).forEach((line) => {
+    const beamSet: Set<number> = new Set()
+    line.forEach((cell, index) => {
+      if (previousBeamSet.has(index)) {
+        if (cell == '.') {
+          beamSet.add(index)
         } else {
-          currentCoords = continuation
+          if (cell == '^') {
+            beamSet.add(index - 1)
+            beamSet.add(index + 1)
+            splitCount++
+          }
         }
       }
-    }
-  }
-  beam([0, startPos])
+    })
+
+    previousBeamSet = beamSet
+  })
+
   return splitCount
 }
 export const day7pt2 = (lines: string[]) => {
