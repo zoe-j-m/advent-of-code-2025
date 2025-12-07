@@ -1,6 +1,3 @@
-import { access } from 'fs'
-import { matrix } from './utils/matrices.ts'
-
 const applySymbol = (symbol: string, a: number, b: number): number => {
   if (symbol == '*') {
     return a * b

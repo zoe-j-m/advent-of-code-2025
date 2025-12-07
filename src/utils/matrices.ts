@@ -8,6 +8,7 @@ export type Direction = 'Left' | 'Right'
 export interface Matrix<T> {
   get(coordinates: CellCoordinates): NestedArray<T> | undefined
   set(coordinates: CellCoordinates, value: NestedArray<T>): void
+  size(): number[]
   rotate(direction: Direction): Matrix<T>
   forEach<U>(
     fn: (value: T, coordinates: CellCoordinates) => U | void
@@ -29,6 +30,16 @@ export const matrix = <T>(x: NestedArray<T>): Matrix<T> => {
   } while (Array.isArray(p))
 
   return {
+    size: () => {
+      const sizeInternal = (na: NestedArray<T>): number[] => {
+        if (Array.isArray(na) && na[0] !== undefined) {
+          return [na.length, ...sizeInternal(na[0])]
+        } else {
+          return []
+        }
+      }
+      return sizeInternal(values)
+    },
     get: (coordinates: CellCoordinates): NestedArray<T> | undefined => {
       if (coordinates.length > dimensions)
         throw new DimensionsError('Coordinates longer than dimensions')
@@ -69,7 +80,6 @@ export const matrix = <T>(x: NestedArray<T>): Matrix<T> => {
 
       if (direction == 'Left') {
         if (Array.isArray(values)) {
-          const maxY = values.length - 1
           values.forEach((row, y) => {
             if (Array.isArray(row)) {
               const maxX = row.length - 1

@@ -1,12 +1,12 @@
 import path from 'path'
-import { day1, day1pt2 } from './day1.ts'
+// import { day1, day1pt2 } from './day1.ts'
 import { getFileAsLines } from './utils/fileHandling.ts'
-import { day2pt1, day2pt2 } from './day2.ts'
-import { getLinesCommaSeparated } from './utils/stringUtils.ts'
-import { day3pt1, day3pt2 } from './day3.ts'
-import { day4pt1, day4pt2 } from './day4.ts'
-import { day5pt1, day5pt2 } from './day5.ts'
-import { day6pt1, day6pt2 } from './day6.ts'
+// import { day2pt1, day2pt2 } from './day2.ts'
+// import { getLinesCommaSeparated } from './utils/stringUtils.ts'
+// import { day3pt1, day3pt2 } from './day3.ts'
+// import { day4pt1, day4pt2 } from './day4.ts'
+// import { day5pt1, day5pt2 } from './day5.ts'
+// import { day6pt1, day6pt2 } from './day6.ts'
 import { day7pt1, day7pt2 } from './day7.ts'
 
 const runDay = (
@@ -36,6 +36,6 @@ const runDay = (
 // )
 // runDay(3, day3pt1, day3pt2)
 // runDay(4, day4pt1, day4pt2)
-runDay(5, day5pt1, day5pt2)
-runDay(6, day6pt1, day6pt2)
+// runDay(5, day5pt1, day5pt2)
+// runDay(6, day6pt1, day6pt2)
 runDay(7, day7pt1, day7pt2)
