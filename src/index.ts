@@ -7,6 +7,7 @@ import { day3pt1, day3pt2 } from './day3.ts'
 import { day4pt1, day4pt2 } from './day4.ts'
 import { day5pt1, day5pt2 } from './day5.ts'
 import { day6pt1, day6pt2 } from './day6.ts'
+import { day7pt1, day7pt2 } from './day7.ts'
 
 const runDay = (
   dayNo: number,
@@ -37,3 +38,4 @@ const runDay = (
 // runDay(4, day4pt1, day4pt2)
 runDay(5, day5pt1, day5pt2)
 runDay(6, day6pt1, day6pt2)
+runDay(7, day7pt1, day7pt2)
