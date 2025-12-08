@@ -1,4 +1,4 @@
-import { matrix, type CellCoordinates, type Matrix } from './utils/matrices.ts'
+import { type CellCoordinates, type Matrix, matrix } from './utils/matrices.ts'
 
 const parseLine = (line: string): string[] => {
   return line.split('')

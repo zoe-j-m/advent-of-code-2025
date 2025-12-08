@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import { matrix, DimensionsError } from '../utils/matrices.ts'
+import { DimensionsError, matrix } from '../utils/matrices.ts'
 
 describe('matrix', () => {
   describe('creation and get', () => {

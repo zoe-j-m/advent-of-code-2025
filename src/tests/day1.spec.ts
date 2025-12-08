@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { day1, day1pt2 } from '../day1.js'
+
 describe('day 1 examples should pass', () => {
   const example = `L68
 L30

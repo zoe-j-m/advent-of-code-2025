@@ -1,6 +1,4 @@
 import path from 'path'
-// import { day1, day1pt2 } from './day1.ts'
-import { getFileAsLines } from './utils/fileHandling.ts'
 // import { day2pt1, day2pt2 } from './day2.ts'
 // import { getLinesCommaSeparated } from './utils/stringUtils.ts'
 // import { day3pt1, day3pt2 } from './day3.ts'
@@ -9,6 +7,8 @@ import { getFileAsLines } from './utils/fileHandling.ts'
 // import { day6pt1, day6pt2 } from './day6.ts'
 import { day7pt1, day7pt2 } from './day7.ts'
 import { day8pt1, day8pt2 } from './day8.ts'
+// import { day1, day1pt2 } from './day1.ts'
+import { getFileAsLines } from './utils/fileHandling.ts'
 
 const runDay = (
   dayNo: number,
