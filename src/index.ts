@@ -8,6 +8,7 @@ import { getFileAsLines } from './utils/fileHandling.ts'
 // import { day5pt1, day5pt2 } from './day5.ts'
 // import { day6pt1, day6pt2 } from './day6.ts'
 import { day7pt1, day7pt2 } from './day7.ts'
+import { day8pt1, day8pt2 } from './day8.ts'
 
 const runDay = (
   dayNo: number,
@@ -39,3 +40,4 @@ const runDay = (
 // runDay(5, day5pt1, day5pt2)
 // runDay(6, day6pt1, day6pt2)
 runDay(7, day7pt1, day7pt2)
+runDay(8, day8pt1(3, 1000), day8pt2)
