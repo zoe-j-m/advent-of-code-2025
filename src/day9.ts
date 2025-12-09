@@ -27,10 +27,13 @@ export const day9pt2 = (lines: string[]): number => {
   const greenLines: TilePair[] = []
 
   redTiles.forEach((tile, index) => {
-    if (index < redTiles.length - 1) {
-      greenLines.push([tile, redTiles[index + 1]!])
+    const tile2 =
+      index < redTiles.length - 1 ? redTiles[index + 1]! : redTiles[0]!
+
+    if (tile[0] < tile2[0] || (tile[0] == tile2[0] && tile[1] <= tile2[1])) {
+      greenLines.push([tile, tile2])
     } else {
-      greenLines.push([tile, redTiles[0]!])
+      greenLines.push([tile2, tile])
     }
   })
 
@@ -54,64 +57,70 @@ export const day9pt2 = (lines: string[]): number => {
   })
 
   const containsLine = (rectangle: TilePair): boolean => {
-    const [maxX, maxY, minX, minY] = [
-      Math.max(rectangle[0][0], rectangle[1][0]),
-      Math.max(rectangle[0][1], rectangle[1][1]),
-      Math.min(rectangle[0][0], rectangle[1][0]),
-      Math.min(rectangle[0][1], rectangle[1][1]),
-    ]
-    return (
-      greenLines.find((a) => {
-        for (
-          let x = Math.min(a[0][0], a[1][0]);
-          x <= Math.max(a[0][0], a[1][0]);
-          x++
-        ) {
-          for (
-            let y = Math.min(a[0][1], a[1][1]);
-            y <= Math.max(a[0][1], a[1][1]);
-            y++
-          ) {
-            if (x > minX && x < maxX && y > minY && y < maxY) return true
-          }
-        }
-      }) != undefined
-    )
+    const b = greenLines.find((a) => {
+      return (
+        (a[0][0] == a[1][0] &&
+          a[0][0] > rectangle[0][0] &&
+          a[0][0] < rectangle[1][0] &&
+          a[0][1] < rectangle[1][1] &&
+          a[1][1] > rectangle[0][1]) ||
+        (a[0][1] == a[1][1] &&
+          a[0][1] > rectangle[0][1] &&
+          a[0][1] < rectangle[1][1] &&
+          a[0][0] < rectangle[1][0] &&
+          a[1][0] > rectangle[0][0])
+      )
+    })
+    return b != undefined
   }
 
-  const containsRectangle = (rect1: TilePair, rect2: TilePair): boolean => {
-    return (
-      rect1[0][0] <= rect2[0][0] &&
-      rect1[0][1] <= rect2[0][1] &&
-      rect1[1][0] >= rect2[1][0] &&
-      rect1[1][1] >= rect2[1][1]
-    )
-  }
-  let rectIndex = 0
-  while (rectIndex < rectangles.length) {
-    const rectangle = rectangles[rectIndex]
-    if (!rectangle) continue
-    if (containsLine(rectangle.rectangle)) {
-      for (
-        let deleteIndex = rectangles.length - 1;
-        deleteIndex >= rectIndex;
-        deleteIndex--
-      ) {
-        const deleteCandidate = rectangles[deleteIndex]
-        if (
-          deleteCandidate &&
-          containsRectangle(deleteCandidate.rectangle, rectangle.rectangle)
-        ) {
-          rectangles.splice(deleteIndex, 1)
-        }
-      }
-    } else {
-      rectIndex++
-    }
-  }
   rectangles.sort((a, b) => {
     return b.size - a.size
   })
 
-  return rectangles[0]?.size || -1
+  let rectIndex = 0
+  while (containsLine(rectangles[rectIndex]!.rectangle)) {
+    rectIndex++
+  }
+
+  return rectangles[rectIndex]!.size
+
+  //   const containsRectangle = (rect1: TilePair, rect2: TilePair): boolean => {
+  //     return (
+  //       rect1[0][0] <= rect2[0][0] &&
+  //       rect1[0][1] <= rect2[0][1] &&
+  //       rect1[1][0] >= rect2[1][0] &&
+  //       rect1[1][1] >= rect2[1][1]
+  //     )
+  //   }
+
+  // This is very clever and is massively slower than the current solution
+  // let rectIndex = 0
+  //   while (rectIndex < rectangles.length) {
+  //     const rectangle = rectangles[rectIndex]
+  //     if (!rectangle) continue
+  //     if (containsLine(rectangle.rectangle)) {
+
+  //       for (
+  //         let deleteIndex = rectangles.length - 1;
+  //         deleteIndex >= rectIndex;
+  //         deleteIndex--
+  //       ) {
+  //         const deleteCandidate = rectangles[deleteIndex]
+  //         if (
+  //           deleteCandidate &&
+  //           containsRectangle(deleteCandidate.rectangle, rectangle.rectangle)
+  //         ) {
+  //           rectangles.splice(deleteIndex, 1)
+  //         }
+  //       }
+  //     } else {
+  //       rectIndex++
+  //     }
+  //   }
+  //   rectangles.sort((a, b) => {
+  //     return b.size - a.size
+  //   })
+
+  //   return rectangles[0]?.size || -1
 }

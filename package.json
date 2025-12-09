@@ -9,7 +9,8 @@
     "test": "vitest",
     "lint": "biome lint --write .",
     "format": "biome format --write .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "biome": "biome check --write . && biome format --write && biome lint --write"
   },
   "keywords": [],
   "author": "",
