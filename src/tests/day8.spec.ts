@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { day8pt1, day8pt2 } from '../day8.ts'
 
-describe('day 6 examples should pass', () => {
+describe('day 8 examples should pass', () => {
   const example = `162,817,812
 57,618,57
 906,360,560

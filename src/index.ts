@@ -7,6 +7,7 @@ import path from 'path'
 // import { day6pt1, day6pt2 } from './day6.ts'
 import { day7pt1, day7pt2 } from './day7.ts'
 import { day8pt1, day8pt2 } from './day8.ts'
+import { day9pt1, day9pt2 } from './day9.ts'
 // import { day1, day1pt2 } from './day1.ts'
 import { getFileAsLines } from './utils/fileHandling.ts'
 
@@ -39,5 +40,6 @@ const runDay = (
 // runDay(4, day4pt1, day4pt2)
 // runDay(5, day5pt1, day5pt2)
 // runDay(6, day6pt1, day6pt2)
-runDay(7, day7pt1, day7pt2)
-runDay(8, day8pt1(3, 1000), day8pt2)
+// runDay(7, day7pt1, day7pt2)
+// runDay(8, day8pt1(3, 1000), day8pt2)
+runDay(9, day9pt1, day9pt2)
